@@ -1,104 +1,186 @@
-﻿Console.WriteLine("==================================");
-Console.WriteLine(" Bank Integration Simulator");
-Console.WriteLine("==================================");
+﻿using System;
 
-string selectedBank = "";
-
-while (true)
+class Program
 {
-    Console.WriteLine();
-    Console.WriteLine("Available Banks");
-    Console.WriteLine("1. SNB");
-    Console.WriteLine("2. Al Rajhi");
-    Console.WriteLine("3. Riyad");
-    Console.WriteLine("4. Mock Bank");
-    Console.WriteLine();
-    Console.Write("Select Bank: ");
-
-    string? bankChoice = Console.ReadLine();
-
-    switch (bankChoice)
+    static void Main()
     {
-        case "1":
-            selectedBank = "SNB";
-            break;
-        case "2":
-            selectedBank = "Al Rajhi";
-            break;
-        case "3":
-            selectedBank = "Riyad";
-            break;
-        case "4":
-            selectedBank = "Mock Bank";
-            break;
-        default:
-            Console.WriteLine();
-            Console.WriteLine("Invalid bank selection. Please try again.");
-            continue;
-    }
 
-    break;
-}
 
-while (true)
-{
-    Console.WriteLine();
-    Console.WriteLine("Available Services");
-    Console.WriteLine("1. Balance Inquiry");
-    Console.WriteLine("2. MT940 Statement");
-    Console.WriteLine("3. Exit");
-    Console.WriteLine();
+        bool restartApplication;
 
-    Console.Write("Select Service: ");
-    string? serviceChoice = Console.ReadLine();
+        do
+        {
 
-    switch (serviceChoice)
-    {
-        case "1":
+            DisplayWelcomeScreen();
 
-            string accountNumber = "";
+            string selectedBank = ReadBankSelection();
 
-            while (true)
+            DisplayServiceMenu();
+
+            string service = ReadServiceSelection();
+
+            switch (service)
             {
-                Console.Write("Enter Account Number: ");
-                accountNumber = Console.ReadLine() ?? "";
+                case "Balance":
 
-                if (accountNumber != "")
-                {
+                    string accountNumber = ReadAccountNumber();
+
+                    DisplayBalanceResult(selectedBank, accountNumber);
+
                     break;
-                }
 
-                Console.WriteLine("Account number cannot be empty.");
+                case "MT940":
+
+                    DisplayMt940Message();
+
+                    break;
+
+                case "Exit":
+                    Console.WriteLine();
+                    Console.WriteLine("Thank you for using Bank Integration Simulator.");
+                    return;
             }
 
             Console.WriteLine();
-            Console.WriteLine($"Connecting to {selectedBank}...");
-            Console.WriteLine();
-            Console.WriteLine("Balance Inquiry Completed");
-            Console.WriteLine();
-            Console.WriteLine($"Account Number : {accountNumber}");
-            Console.WriteLine("Currency       : SAR");
-            Console.WriteLine("Balance        : 15,350.00");
-            Console.WriteLine();
-            Console.WriteLine("Status         : Success");
+            Console.Write("Would you like to perform another operation? (Y/N): ");
 
-            break;
+            string? answer = Console.ReadLine();
 
-        case "2":
-            Console.WriteLine();
-            Console.WriteLine("Feature coming in future versions.");
-            break;
+            restartApplication =
+                answer?.Trim().Equals("Y", StringComparison.OrdinalIgnoreCase) == true;
 
-        case "3":
-            Console.WriteLine();
-            Console.WriteLine("Thank you for using Bank Integration Simulator.");
-            break;
+        } while (restartApplication);
 
-        default:
-            Console.WriteLine();
-            Console.WriteLine("Invalid service selection.");
-            continue;
+        Console.WriteLine();
+        Console.WriteLine("Thank you for using Bank Integration Simulator.");
     }
 
-    break;
+
+    static void DisplayWelcomeScreen()
+    {
+        Console.WriteLine("==================================");
+        Console.WriteLine(" Bank Integration Simulator");
+        Console.WriteLine("==================================");
+    }
+
+
+    static string ReadBankSelection()
+    {
+        while (true)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Available Banks");
+            Console.WriteLine("1. SNB");
+            Console.WriteLine("2. Al Rajhi");
+            Console.WriteLine("3. Riyad");
+            Console.WriteLine("4. Mock Bank");
+            Console.WriteLine();
+
+            Console.Write("Select Bank: ");
+
+            string? choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    return "SNB";
+
+                case "2":
+                    return "Al Rajhi";
+
+                case "3":
+                    return "Riyad";
+
+                case "4":
+                    return "Mock Bank";
+
+                default:
+                    Console.WriteLine();
+                    Console.WriteLine("Invalid bank selection. Please try again.");
+                    break;
+            }
+        }
+    }
+
+
+    static void DisplayServiceMenu()
+    {
+        Console.WriteLine();
+        Console.WriteLine("Available Services");
+        Console.WriteLine("1. Balance Inquiry");
+        Console.WriteLine("2. MT940 Statement");
+        Console.WriteLine("3. Exit");
+        Console.WriteLine();
+    }
+
+
+    static string ReadServiceSelection()
+    {
+        while (true)
+        {
+            Console.Write("Select Service: ");
+
+            string? choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    return "Balance";
+
+                case "2":
+                    return "MT940";
+
+                case "3":
+                    return "Exit";
+
+                default:
+                    Console.WriteLine();
+                    Console.WriteLine("Invalid service selection.");
+                    break;
+            }
+        }
+    }
+
+
+    static string ReadAccountNumber()
+    {
+        while (true)
+        {
+            Console.Write("Enter Account Number: ");
+
+            string accountNumber = Console.ReadLine() ?? "";
+
+            if (!string.IsNullOrWhiteSpace(accountNumber))
+            {
+                return accountNumber;
+            }
+
+            Console.WriteLine("Account number cannot be empty.");
+        }
+    }
+
+
+    static void DisplayBalanceResult(string bank, string accountNumber)
+    {
+        Console.WriteLine();
+        Console.WriteLine($"Connecting to {bank}...");
+        Console.WriteLine();
+
+        Console.WriteLine("Balance Inquiry Completed");
+        Console.WriteLine();
+
+        Console.WriteLine($"Account Number : {accountNumber}");
+        Console.WriteLine("Currency       : SAR");
+        Console.WriteLine("Balance        : 15,350.00");
+
+        Console.WriteLine();
+        Console.WriteLine("Status         : Success");
+    }
+
+
+    static void DisplayMt940Message()
+    {
+        Console.WriteLine();
+        Console.WriteLine("Feature coming in future versions.");
+    }
 }
