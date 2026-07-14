@@ -15,7 +15,7 @@ namespace BankIntegrationSimulator.Services
 
             response.AccountNumber = accountNumber;
 
-            response.Currency = "SAR";
+            response.Currency = bank.Currency;
 
             response.Status = "Success";
 
