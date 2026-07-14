@@ -32,7 +32,7 @@ class Program
                     string accountNumber = ReadAccountNumber();
 
                     // Ask the service to perform the balance inquiry.
-                    BankResponse response = bankService.GetBalance(selectedBank, accountNumber);
+                    BalanceResponse response = bankService.GetBalance(selectedBank, accountNumber);
 
                     // Display the returned information.
                     DisplayBalanceResult(selectedBank, response);
@@ -169,7 +169,7 @@ class Program
     }
 
 
-    static void DisplayBalanceResult(Bank bank, BankResponse response)
+    static void DisplayBalanceResult(Bank bank, BalanceResponse response)
     {
         Console.WriteLine();
         Console.WriteLine($"Request Id     : {Guid.NewGuid()}");
