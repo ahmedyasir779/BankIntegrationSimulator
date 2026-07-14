@@ -5,6 +5,9 @@ class Program
 {
     static void Main()
     {
+        // PHP
+        // $bankService = new BankService();
+        // $response = $bankService->getBalance($bank, $accountNumber);
 
         // Create one BankService object that will be reused.
         BankService bankService = new BankService();
