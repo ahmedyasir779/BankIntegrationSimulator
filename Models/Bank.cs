@@ -31,12 +31,24 @@ namespace BankIntegrationSimulator.Models
             bool certificateRequired)
         {
             // Store the provided name in the Name property.
+            if(string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Bank name cannot be empty", nameof(name));
+            }
             Name = name;
 
             // Store the provided code.
+            if(string.IsNullOrWhiteSpace(code))
+            {
+                throw new ArgumentException("Bank code cannot be empty", nameof(code));
+            }
             Code = code;
 
             // Store the API base URL.
+            if(string.IsNullOrWhiteSpace(baseUrl))
+            {
+                throw new ArgumentException("Bank baseUrl cannot be empty", nameof(baseUrl));
+            }
             BaseUrl = baseUrl;
 
             // Store whether this bank requires a certificate.
