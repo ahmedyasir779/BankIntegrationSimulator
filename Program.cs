@@ -95,7 +95,7 @@ class Program
                     return new Bank("Al Rajhi", "RJHI", "https://api.alrajhi.com", true);
 
                 case "3":
-                    return new Bank("Al Riyad", "RIBLSARI", "https://api.riyadbank.com", true);
+                    return new Bank("Al Riyad", "RIYAD", "https://api.riyadbank.com", true);
 
                 case "4":
                     return new Bank("Mock Bank", "MOCK", "https://api.mock.com", true);
@@ -169,8 +169,11 @@ class Program
     static void DisplayBalanceResult(Bank bank, BankResponse response)
     {
         Console.WriteLine();
-        Console.WriteLine($"Connecting to {bank.Name}...");
+        Console.WriteLine($"Request Id     : {Guid.NewGuid()}");
+        Console.WriteLine($"Bank Name      : {bank.Name}");
+        Console.WriteLine($"Bank Code      : {bank.Code}");
         Console.WriteLine();
+        Console.WriteLine("Connecting...");
 
         Console.WriteLine("Balance Inquiry Completed");
         Console.WriteLine();
