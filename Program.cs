@@ -1,11 +1,13 @@
 ﻿using BankIntegrationSimulator.Models;
-using System;
+using BankIntegrationSimulator.Services;
 
 class Program
 {
     static void Main()
     {
 
+        // Create one BankService object that will be reused.
+        BankService bankService = new BankService();
 
         bool restartApplication;
 
@@ -26,8 +28,11 @@ class Program
 
                     string accountNumber = ReadAccountNumber();
 
-                    DisplayBalanceResult(selectedBank, accountNumber);
+                    // Ask the service to perform the balance inquiry.
+                    BankResponse response = bankService.GetBalance(selectedBank, accountNumber);
 
+                    // Display the returned information.
+                    DisplayBalanceResult(selectedBank, response);
                     break;
 
                 case "MT940":
@@ -161,7 +166,7 @@ class Program
     }
 
 
-    static void DisplayBalanceResult(Bank bank, string accountNumber)
+    static void DisplayBalanceResult(Bank bank, BankResponse response)
     {
         Console.WriteLine();
         Console.WriteLine($"Connecting to {bank.Name}...");
@@ -170,12 +175,12 @@ class Program
         Console.WriteLine("Balance Inquiry Completed");
         Console.WriteLine();
 
-        Console.WriteLine($"Account Number : {accountNumber}");
-        Console.WriteLine("Currency       : SAR");
-        Console.WriteLine("Balance        : 15,350.00");
+        Console.WriteLine($"Account Number : {response.AccountNumber}");
+        Console.WriteLine($"Currency       : {response.Currency}");
+        Console.WriteLine($"Balance        : {response.Balance:N2}");
 
         Console.WriteLine();
-        Console.WriteLine("Status         : Success");
+        Console.WriteLine($"Status         : {response.Status}");
     }
 
 
