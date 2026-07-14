@@ -27,3 +27,4 @@ C:\Users\Ayasir\source\repos\BankIntegrationSimulator\obj\Debug\net10.0\refint\B
 C:\Users\Ayasir\source\repos\BankIntegrationSimulator\obj\Debug\net10.0\BankIntegrationSimulator.pdb
 C:\Users\Ayasir\source\repos\BankIntegrationSimulator\obj\Debug\net10.0\BankIntegrationSimulator.genruntimeconfig.cache
 C:\Users\Ayasir\source\repos\BankIntegrationSimulator\obj\Debug\net10.0\ref\BankIntegrationSimulator.dll
+C:\Users\Ahmed\source\repos\BankIntegrationSimulator\BankIntegrationSimulator\obj\Debug\net10.0\BankIntegrationSimulator.sourcelink.json

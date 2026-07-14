@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BankIntegrationSimulator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e5b804eab43c284a0fe39d8b68253c85ec84a94")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b48dd5ccf80b799529d8c30073d54a194aa5c070")]
 [assembly: System.Reflection.AssemblyProductAttribute("BankIntegrationSimulator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BankIntegrationSimulator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

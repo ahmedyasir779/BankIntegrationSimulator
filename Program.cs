@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankIntegrationSimulator.Models;
+using System;
 
 class Program
 {
@@ -13,7 +14,7 @@ class Program
 
             DisplayWelcomeScreen();
 
-            string selectedBank = ReadBankSelection();
+            Bank selectedBank = ReadBankSelection();
 
             DisplayServiceMenu();
 
@@ -64,7 +65,7 @@ class Program
     }
 
 
-    static string ReadBankSelection()
+    static Bank ReadBankSelection()
     {
         while (true)
         {
@@ -83,16 +84,16 @@ class Program
             switch (choice)
             {
                 case "1":
-                    return "SNB";
+                    return new Bank("Saudi National Bank", "SNB", "https://api.snb.com", true);
 
                 case "2":
-                    return "Al Rajhi";
+                    return new Bank("Al Rajhi", "RJHI", "https://api.alrajhi.com", true);
 
                 case "3":
-                    return "Riyad";
+                    return new Bank("Al Riyad", "RIBLSARI", "https://api.riyadbank.com", true);
 
                 case "4":
-                    return "Mock Bank";
+                    return new Bank("Mock Bank", "MOCK", "https://api.mock.com", true);
 
                 default:
                     Console.WriteLine();
@@ -160,10 +161,10 @@ class Program
     }
 
 
-    static void DisplayBalanceResult(string bank, string accountNumber)
+    static void DisplayBalanceResult(Bank bank, string accountNumber)
     {
         Console.WriteLine();
-        Console.WriteLine($"Connecting to {bank}...");
+        Console.WriteLine($"Connecting to {bank.Name}...");
         Console.WriteLine();
 
         Console.WriteLine("Balance Inquiry Completed");
