@@ -92,16 +92,16 @@ class Program
             switch (choice)
             {
                 case "1":
-                    return new Bank("Saudi National Bank", "SNB", "https://api.snb.com", true);
+                    return new Bank("Saudi National Bank", "SNB", "Saudi Arabia", "SAR", "OAuth2", "https://api.snb.com", true, true);
 
                 case "2":
-                    return new Bank("Al Rajhi", "RJHI", "https://api.alrajhi.com", true);
+                    return new Bank("Al Rajhi", "RJHI", "Saudi Arabia", "SAR", "Mutual TLS", "https://api.alrajhi.com", true, true);
 
                 case "3":
-                    return new Bank("Al Riyad", "RIYAD", "https://api.riyadbank.com", true);
+                    return new Bank("Al Riyad", "RIYAD", "Saudi Arabia", "SAR", "Mutual TLS", "https://api.riyadbank.com", true, true);
 
                 case "4":
-                    return new Bank("Mock Bank", "MOCK", "https://api.mock.com", true);
+                    return new Bank("Mock Bank", "MOCK", "UK", "EUR", "OAuth2", "https://api.mock.com", true, true);
 
                 default:
                     Console.WriteLine();
