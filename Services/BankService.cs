@@ -8,14 +8,14 @@ namespace BankIntegrationSimulator.Services
         // This method simulates a balance inquiry.
         // It receives a Bank object and an account number,
         // then returns a BankResponse object.
-        public BankResponse GetBalance(Bank bank, string accountNumber)
+        public BalanceResponse GetBalance(Bank bank, string accountNumber)
         {
             // Create a new response object.
-            BankResponse response = new BankResponse();
+            BalanceResponse response = new BalanceResponse();
 
             response.AccountNumber = accountNumber;
 
-            response.Currency = "SAR";
+            response.Currency = bank.Currency;
 
             response.Status = "Success";
 

@@ -1,10 +1,14 @@
 ﻿using BankIntegrationSimulator.Models;
 using BankIntegrationSimulator.Services;
+using BankIntegrationSimulator.Data;
 
 class Program
 {
     static void Main()
     {
+        // PHP
+        // $bankService = new BankService();
+        // $response = $bankService->getBalance($bank, $accountNumber);
 
         // Create one BankService object that will be reused.
         BankService bankService = new BankService();
@@ -29,7 +33,7 @@ class Program
                     string accountNumber = ReadAccountNumber();
 
                     // Ask the service to perform the balance inquiry.
-                    BankResponse response = bankService.GetBalance(selectedBank, accountNumber);
+                    BalanceResponse response = bankService.GetBalance(selectedBank, accountNumber);
 
                     // Display the returned information.
                     DisplayBalanceResult(selectedBank, response);
@@ -72,42 +76,36 @@ class Program
 
     static Bank ReadBankSelection()
     {
+        List<Bank> banks = BankFactory.GetBanks();
+
         while (true)
         {
             Console.WriteLine();
             Console.WriteLine("Available Banks");
-            Console.WriteLine("1. SNB");
-            Console.WriteLine("2. Al Rajhi");
-            Console.WriteLine("3. Riyad");
-            Console.WriteLine("4. Mock Bank");
+
+            for (int i = 0; i < banks.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {banks[i].Name}");
+            }
+
             Console.WriteLine();
 
             Console.Write("Select Bank: ");
 
             string? choice = Console.ReadLine();
 
-            switch (choice)
+            if (int.TryParse(choice, out int selectedIndex))
             {
-                case "1":
-                    return new Bank("Saudi National Bank", "SNB", "https://api.snb.com", true);
+                if (selectedIndex >= 1 && selectedIndex <= banks.Count)
+                {
+                    return banks[selectedIndex - 1];
+                }
 
-                case "2":
-                    return new Bank("Al Rajhi", "RJHI", "https://api.alrajhi.com", true);
-
-                case "3":
-                    return new Bank("Al Riyad", "RIYAD", "https://api.riyadbank.com", true);
-
-                case "4":
-                    return new Bank("Mock Bank", "MOCK", "https://api.mock.com", true);
-
-                default:
-                    Console.WriteLine();
-                    Console.WriteLine("Invalid bank selection. Please try again.");
-                    break;
+                Console.WriteLine();
+                Console.WriteLine("Invalid bank selection. Please try again.");
             }
         }
     }
-
 
     static void DisplayServiceMenu()
     {
@@ -166,7 +164,7 @@ class Program
     }
 
 
-    static void DisplayBalanceResult(Bank bank, BankResponse response)
+    static void DisplayBalanceResult(Bank bank, BalanceResponse response)
     {
         Console.WriteLine();
         Console.WriteLine($"Request Id     : {Guid.NewGuid()}");

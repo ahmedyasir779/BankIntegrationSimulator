@@ -1,7 +1,7 @@
 ﻿
 namespace BankIntegrationSimulator.Models
 {
-    public class BankResponse
+    public class BalanceResponse
     {
         public string AccountNumber { get; set; } = "";
 
