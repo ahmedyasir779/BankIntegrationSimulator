@@ -1,5 +1,6 @@
 ﻿using BankIntegrationSimulator.Models;
 using BankIntegrationSimulator.Services;
+using BankIntegrationSimulator.Data;
 
 class Program
 {
@@ -75,42 +76,36 @@ class Program
 
     static Bank ReadBankSelection()
     {
+        List<Bank> banks = BankFactory.GetBanks();
+
         while (true)
         {
             Console.WriteLine();
             Console.WriteLine("Available Banks");
-            Console.WriteLine("1. SNB");
-            Console.WriteLine("2. Al Rajhi");
-            Console.WriteLine("3. Riyad");
-            Console.WriteLine("4. Mock Bank");
+
+            for (int i = 0; i < banks.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {banks[i].Name}");
+            }
+
             Console.WriteLine();
 
             Console.Write("Select Bank: ");
 
             string? choice = Console.ReadLine();
 
-            switch (choice)
+            if (int.TryParse(choice, out int selectedIndex))
             {
-                case "1":
-                    return new Bank("Saudi National Bank", "SNB", "Saudi Arabia", "SAR", "OAuth2", "https://api.snb.com", true, true);
+                if (selectedIndex >= 1 && selectedIndex <= banks.Count)
+                {
+                    return banks[selectedIndex - 1];
+                }
 
-                case "2":
-                    return new Bank("Al Rajhi", "RJHI", "Saudi Arabia", "SAR", "Mutual TLS", "https://api.alrajhi.com", true, true);
-
-                case "3":
-                    return new Bank("Al Riyad", "RIYAD", "Saudi Arabia", "SAR", "Mutual TLS", "https://api.riyadbank.com", true, true);
-
-                case "4":
-                    return new Bank("Mock Bank", "MOCK", "UK", "EUR", "OAuth2", "https://api.mock.com", true, true);
-
-                default:
-                    Console.WriteLine();
-                    Console.WriteLine("Invalid bank selection. Please try again.");
-                    break;
+                Console.WriteLine();
+                Console.WriteLine("Invalid bank selection. Please try again.");
             }
         }
     }
-
 
     static void DisplayServiceMenu()
     {
