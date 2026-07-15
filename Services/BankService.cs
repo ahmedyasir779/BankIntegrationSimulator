@@ -1,8 +1,9 @@
 ﻿using BankIntegrationSimulator.Models;
+using BankIntegrationSimulator.Contracts;
 
 namespace BankIntegrationSimulator.Services
 {
-    public class BankService
+    public class BankService : IBankService
     {
 
         // This method simulates a balance inquiry.
