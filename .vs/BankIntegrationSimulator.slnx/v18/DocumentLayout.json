@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\Users\\Ayasir\\source\\repos\\BankIntegrationSimulator\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{36CD642F-645B-E4A1-2CEE-6F411F5AE9C3}|BankIntegrationSimulator.csproj|c:\\users\\ayasir\\source\\repos\\bankintegrationsimulator\\adapters\\mockbankadapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36CD642F-645B-E4A1-2CEE-6F411F5AE9C3}|BankIntegrationSimulator.csproj|solutionrelative:adapters\\mockbankadapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36CD642F-645B-E4A1-2CEE-6F411F5AE9C3}|BankIntegrationSimulator.csproj|c:\\users\\ayasir\\source\\repos\\bankintegrationsimulator\\adapters\\alrajhibankadapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36CD642F-645B-E4A1-2CEE-6F411F5AE9C3}|BankIntegrationSimulator.csproj|solutionrelative:adapters\\alrajhibankadapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36CD642F-645B-E4A1-2CEE-6F411F5AE9C3}|BankIntegrationSimulator.csproj|c:\\users\\ayasir\\source\\repos\\bankintegrationsimulator\\adapters\\riyadbankadapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36CD642F-645B-E4A1-2CEE-6F411F5AE9C3}|BankIntegrationSimulator.csproj|solutionrelative:adapters\\riyadbankadapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36CD642F-645B-E4A1-2CEE-6F411F5AE9C3}|BankIntegrationSimulator.csproj|c:\\users\\ayasir\\source\\repos\\bankintegrationsimulator\\adapters\\snbbankadapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36CD642F-645B-E4A1-2CEE-6F411F5AE9C3}|BankIntegrationSimulator.csproj|solutionrelative:adapters\\snbbankadapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{36CD642F-645B-E4A1-2CEE-6F411F5AE9C3}|BankIntegrationSimulator.csproj|c:\\users\\ayasir\\source\\repos\\bankintegrationsimulator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{36CD642F-645B-E4A1-2CEE-6F411F5AE9C3}|BankIntegrationSimulator.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -19,6 +35,58 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "MockBankAdapter.cs",
+              "DocumentMoniker": "C:\\Users\\Ayasir\\source\\repos\\BankIntegrationSimulator\\Adapters\\MockBankAdapter.cs",
+              "RelativeDocumentMoniker": "Adapters\\MockBankAdapter.cs",
+              "ToolTip": "C:\\Users\\Ayasir\\source\\repos\\BankIntegrationSimulator\\Adapters\\MockBankAdapter.cs",
+              "RelativeToolTip": "Adapters\\MockBankAdapter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-15T09:55:16.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AlRajhiBankAdapter.cs",
+              "DocumentMoniker": "C:\\Users\\Ayasir\\source\\repos\\BankIntegrationSimulator\\Adapters\\AlRajhiBankAdapter.cs",
+              "RelativeDocumentMoniker": "Adapters\\AlRajhiBankAdapter.cs",
+              "ToolTip": "C:\\Users\\Ayasir\\source\\repos\\BankIntegrationSimulator\\Adapters\\AlRajhiBankAdapter.cs",
+              "RelativeToolTip": "Adapters\\AlRajhiBankAdapter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-15T09:54:32.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RiyadBankAdapter.cs",
+              "DocumentMoniker": "C:\\Users\\Ayasir\\source\\repos\\BankIntegrationSimulator\\Adapters\\RiyadBankAdapter.cs",
+              "RelativeDocumentMoniker": "Adapters\\RiyadBankAdapter.cs",
+              "ToolTip": "C:\\Users\\Ayasir\\source\\repos\\BankIntegrationSimulator\\Adapters\\RiyadBankAdapter.cs*",
+              "RelativeToolTip": "Adapters\\RiyadBankAdapter.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-15T09:45:06.706Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SNBBankAdapter.cs",
+              "DocumentMoniker": "C:\\Users\\Ayasir\\source\\repos\\BankIntegrationSimulator\\Adapters\\SNBBankAdapter.cs",
+              "RelativeDocumentMoniker": "Adapters\\SNBBankAdapter.cs",
+              "ToolTip": "C:\\Users\\Ayasir\\source\\repos\\BankIntegrationSimulator\\Adapters\\SNBBankAdapter.cs",
+              "RelativeToolTip": "Adapters\\SNBBankAdapter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-15T09:41:41.35Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Ayasir\\source\\repos\\BankIntegrationSimulator\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
