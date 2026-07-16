@@ -1,5 +1,6 @@
 ﻿using BankIntegrationSimulator.Models;
 using BankIntegrationSimulator.Contracts;
+using BankIntegrationSimulator.Exceptions;
 using System.IO;
 using System.Text.Json;
 
@@ -15,9 +16,30 @@ namespace BankIntegrationSimulator.Services
         {
             // Create a new response object.
             //BalanceResponse response = new BalanceResponse();
+            if (accountNumber == "999999999")
+            {
+                throw new InvalidAccountException("Account does not exist.");
+            }
             string filePath = $"MockData/{bank.Code}/balance.json";
+
+            if (!File.Exists(filePath))
+            {
+                throw new BankNotFoundException($"Bank '{bank.Code}' was not found.");
+            }
+
             string json = File.ReadAllText(filePath);
-            BalanceResponse response = JsonSerializer.Deserialize<BalanceResponse>(json)!;
+            BalanceResponse response =
+            JsonSerializer.Deserialize<BalanceResponse>(
+            json,
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            })!;
+
+            //Console.WriteLine(json);
+            //Console.WriteLine(response.Balance);
+            //Console.WriteLine(response.Currency);
+            //Console.WriteLine(response.Status);
 
             response.AccountNumber = accountNumber;
 

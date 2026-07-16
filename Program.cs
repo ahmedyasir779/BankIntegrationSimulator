@@ -1,6 +1,7 @@
-﻿using BankIntegrationSimulator.Models;
+﻿using BankIntegrationSimulator.Data;
+using BankIntegrationSimulator.Exceptions;
+using BankIntegrationSimulator.Models;
 using BankIntegrationSimulator.Services;
-using BankIntegrationSimulator.Data;
 
 class Program
 {
@@ -30,13 +31,24 @@ class Program
             {
                 case "Balance":
 
-                    string accountNumber = ReadAccountNumber();
+                    try
+                    {
 
-                    // Ask the service to perform the balance inquiry.
-                    BalanceResponse response = bankService.GetBalance(selectedBank, accountNumber);
+                        string accountNumber = ReadAccountNumber();
 
-                    // Display the returned information.
-                    DisplayBalanceResult(selectedBank, response);
+                        // Ask the service to perform the balance inquiry.
+                        BalanceResponse response = bankService.GetBalance(selectedBank, accountNumber);
+
+                        // Display the returned information.
+                        DisplayBalanceResult(selectedBank, response);
+                    }
+                    catch (InvalidAccountException ex)
+                    {
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Error: {ex.Message}");
+                        Console.ResetColor();
+                    }
                     break;
 
                 case "MT940":
