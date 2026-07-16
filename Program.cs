@@ -42,7 +42,7 @@ class Program
                         // Display the returned information.
                         DisplayBalanceResult(selectedBank, response);
                     }
-                    catch (InvalidAccountException ex)
+                    catch (IntegrationException ex)
                     {
                         Console.WriteLine();
                         Console.ForegroundColor = ConsoleColor.Red;
