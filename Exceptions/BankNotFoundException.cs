@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 
 namespace BankIntegrationSimulator.Exceptions
 {
-    internal class BankNotFoundException
+    public class BankNotFoundException : IntegrationException
     {
+        public BankNotFoundException(string message) : base(message)
+        {
+        }
     }
 }

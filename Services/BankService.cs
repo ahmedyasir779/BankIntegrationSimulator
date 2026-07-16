@@ -1,5 +1,7 @@
 ﻿using BankIntegrationSimulator.Models;
 using BankIntegrationSimulator.Contracts;
+using System.IO;
+using System.Text.Json;
 
 namespace BankIntegrationSimulator.Services
 {
@@ -12,32 +14,36 @@ namespace BankIntegrationSimulator.Services
         public BalanceResponse GetBalance(Bank bank, string accountNumber)
         {
             // Create a new response object.
-            BalanceResponse response = new BalanceResponse();
+            //BalanceResponse response = new BalanceResponse();
+            string filePath = $"MockData/{bank.Code}/balance.json";
+            string json = File.ReadAllText(filePath);
+            BalanceResponse response = JsonSerializer.Deserialize<BalanceResponse>(json)!;
 
             response.AccountNumber = accountNumber;
 
-            response.Currency = bank.Currency;
+            //response.Currency = bank.Currency;
 
-            response.Status = "Success";
+            //response.Status = "Success";
 
-            switch (bank.Code)
-            {
-                case "SNB":
-                    response.Balance = 15350.00m;
-                    break;
 
-                case "RJHI":
-                    response.Balance = 8100.00m;
-                    break;
+            //switch (bank.Code)
+            //{
+            //    case "SNB":
+            //        response.Balance = 15350.00m;
+            //        break;
 
-                case "RIYAD":
-                    response.Balance = 22900.00m;
-                    break;
+            //    case "RJHI":
+            //        response.Balance = 8100.00m;
+            //        break;
 
-                default:
-                    response.Balance = 5000.00m;
-                    break;
-            }
+            //    case "RIYAD":
+            //        response.Balance = 22900.00m;
+            //        break;
+
+            //    default:
+            //        response.Balance = 5000.00m;
+            //        break;
+            //}
 
             return response;
         }
