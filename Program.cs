@@ -37,10 +37,10 @@ class Program
                         string accountNumber = ReadAccountNumber();
 
                         // Ask the service to perform the balance inquiry.
-                        BalanceResponse response = bankService.GetBalance(selectedBank, accountNumber);
+                        BankApiResponse<BalanceResponse> response = bankService.GetBalance(selectedBank, accountNumber);
 
                         // Display the returned information.
-                        DisplayBalanceResult(selectedBank, response);
+                        DisplayBalanceResult(selectedBank, response.Data);
                     }
                     catch (IntegrationException ex)
                     {
