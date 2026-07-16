@@ -2,6 +2,7 @@
 using BankIntegrationSimulator.Exceptions;
 using BankIntegrationSimulator.Models;
 using BankIntegrationSimulator.Services;
+using BankIntegrationSimulator.Contracts;
 
 class Program
 {
@@ -12,7 +13,10 @@ class Program
         // $response = $bankService->getBalance($bank, $accountNumber);
 
         // Create one BankService object that will be reused.
-        BankService bankService = new BankService();
+        AdapterRegistry adapterRegistry = new AdapterRegistry();
+        ILoggerService logger = new ConsoleLogger();
+
+        IBankService bankService = new BankService(adapterRegistry, logger);
 
         bool restartApplication;
 
@@ -33,6 +37,11 @@ class Program
 
                     try
                     {
+
+                        Guid correlationId = Guid.NewGuid();
+                        Console.WriteLine();
+                        Console.WriteLine($"Correlation Id: {correlationId}");
+                        Console.WriteLine();
 
                         string accountNumber = ReadAccountNumber();
 
@@ -179,7 +188,6 @@ class Program
     static void DisplayBalanceResult(Bank bank, BalanceResponse response)
     {
         Console.WriteLine();
-        Console.WriteLine($"Request Id     : {Guid.NewGuid()}");
         Console.WriteLine($"Bank Name      : {bank.Name}");
         Console.WriteLine($"Bank Code      : {bank.Code}");
         Console.WriteLine();

@@ -10,10 +10,12 @@ namespace BankIntegrationSimulator.Services
     {
 
         private readonly AdapterRegistry _adapterRegistry;
+        private readonly ILoggerService _logger;
 
-        public BankService()
+        public BankService(AdapterRegistry adapterRegistry, ILoggerService logger)
         {
-            _adapterRegistry = new AdapterRegistry();
+            _adapterRegistry = adapterRegistry;
+            _logger = logger;
         }
 
         // This method simulates a balance inquiry.
@@ -21,16 +23,22 @@ namespace BankIntegrationSimulator.Services
         // then returns a BankResponse object.
         public BankApiResponse<BalanceResponse> GetBalance(Bank bank, string accountNumber)
         {
+
+            _logger.LogInfo($"Starting balance inquiry for bank {bank.Code}");
+
             // Create a new response object.
-            //BalanceResponse response = new BalanceResponse();
+            // BalanceResponse response = new BalanceResponse();
             if (accountNumber == "999999999")
             {
+                _logger.LogError("Invalid account number.");
                 throw new InvalidAccountException("Account does not exist.");
             }
 
+            _logger.LogInfo($"Using adapter for {bank.Code}");
             IBankAdapter adapter = _adapterRegistry.GetAdapter(bank.Code);
 
             BalanceResponse response = adapter.GetBalance(bank, accountNumber);
+            _logger.LogInfo("Balance inquiry completed successfully.");
 
             return new BankApiResponse<BalanceResponse>
             {
