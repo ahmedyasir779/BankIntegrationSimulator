@@ -40,7 +40,7 @@ class Program
                         BankApiResponse<BalanceResponse> response = bankService.GetBalance(selectedBank, accountNumber);
 
                         // Display the returned information.
-                        DisplayBalanceResult(selectedBank, response.Data);
+                        DisplayBalanceResult(selectedBank, response.Data!);
                     }
                     catch (IntegrationException ex)
                     {
