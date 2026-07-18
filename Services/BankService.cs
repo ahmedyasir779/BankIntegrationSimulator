@@ -1,73 +1,50 @@
 ﻿using BankIntegrationSimulator.Models;
 using BankIntegrationSimulator.Contracts;
 using BankIntegrationSimulator.Exceptions;
-using System.IO;
-using System.Text.Json;
+using BankIntegrationSimulator.Adapters;
+using BankIntegrationSimulator.Data;
 
 namespace BankIntegrationSimulator.Services
 {
     public class BankService : IBankService
     {
 
+        private readonly AdapterRegistry _adapterRegistry;
+        private readonly ILoggerService _logger;
+
+        public BankService(AdapterRegistry adapterRegistry, ILoggerService logger)
+        {
+            _adapterRegistry = adapterRegistry;
+            _logger = logger;
+        }
+
         // This method simulates a balance inquiry.
         // It receives a Bank object and an account number,
         // then returns a BankResponse object.
-        public BalanceResponse GetBalance(Bank bank, string accountNumber)
+        public BankApiResponse<BalanceResponse> GetBalance(Bank bank, string accountNumber)
         {
+
+            _logger.LogInfo($"Starting balance inquiry for bank {bank.Code}");
+
             // Create a new response object.
-            //BalanceResponse response = new BalanceResponse();
+            // BalanceResponse response = new BalanceResponse();
             if (accountNumber == "999999999")
             {
+                _logger.LogError("Invalid account number.");
                 throw new InvalidAccountException("Account does not exist.");
             }
-            string filePath = $"MockData/{bank.Code}/balance.json";
 
-            if (!File.Exists(filePath))
+            _logger.LogInfo($"Using adapter for {bank.Code}");
+            IBankAdapter adapter = _adapterRegistry.GetAdapter(bank.Code);
+
+            BalanceResponse response = adapter.GetBalance(bank, accountNumber);
+            _logger.LogInfo("Balance inquiry completed successfully.");
+
+            return new BankApiResponse<BalanceResponse>
             {
-                throw new BankNotFoundException($"Bank '{bank.Code}' was not found.");
-            }
-
-            string json = File.ReadAllText(filePath);
-            BalanceResponse response =
-            JsonSerializer.Deserialize<BalanceResponse>(
-            json,
-            new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            })!;
-
-            //Console.WriteLine(json);
-            //Console.WriteLine(response.Balance);
-            //Console.WriteLine(response.Currency);
-            //Console.WriteLine(response.Status);
-
-            response.AccountNumber = accountNumber;
-
-            //response.Currency = bank.Currency;
-
-            //response.Status = "Success";
-
-
-            //switch (bank.Code)
-            //{
-            //    case "SNB":
-            //        response.Balance = 15350.00m;
-            //        break;
-
-            //    case "RJHI":
-            //        response.Balance = 8100.00m;
-            //        break;
-
-            //    case "RIYAD":
-            //        response.Balance = 22900.00m;
-            //        break;
-
-            //    default:
-            //        response.Balance = 5000.00m;
-            //        break;
-            //}
-
-            return response;
+                Success = true,
+                Data = response
+            };
         }
     }
 }
