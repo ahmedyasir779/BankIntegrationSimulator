@@ -1,104 +1,213 @@
-﻿Console.WriteLine("==================================");
-Console.WriteLine(" Bank Integration Simulator");
-Console.WriteLine("==================================");
+﻿using BankIntegrationSimulator.Data;
+using BankIntegrationSimulator.Exceptions;
+using BankIntegrationSimulator.Models;
+using BankIntegrationSimulator.Services;
+using BankIntegrationSimulator.Contracts;
 
-string selectedBank = "";
-
-while (true)
+class Program
 {
-    Console.WriteLine();
-    Console.WriteLine("Available Banks");
-    Console.WriteLine("1. SNB");
-    Console.WriteLine("2. Al Rajhi");
-    Console.WriteLine("3. Riyad");
-    Console.WriteLine("4. Mock Bank");
-    Console.WriteLine();
-    Console.Write("Select Bank: ");
-
-    string? bankChoice = Console.ReadLine();
-
-    switch (bankChoice)
+    static void Main()
     {
-        case "1":
-            selectedBank = "SNB";
-            break;
-        case "2":
-            selectedBank = "Al Rajhi";
-            break;
-        case "3":
-            selectedBank = "Riyad";
-            break;
-        case "4":
-            selectedBank = "Mock Bank";
-            break;
-        default:
-            Console.WriteLine();
-            Console.WriteLine("Invalid bank selection. Please try again.");
-            continue;
-    }
+        // PHP
+        // $bankService = new BankService();
+        // $response = $bankService->getBalance($bank, $accountNumber);
 
-    break;
-}
+        // Create one BankService object that will be reused.
+        AdapterRegistry adapterRegistry = new AdapterRegistry();
+        ILoggerService logger = new ConsoleLogger();
 
-while (true)
-{
-    Console.WriteLine();
-    Console.WriteLine("Available Services");
-    Console.WriteLine("1. Balance Inquiry");
-    Console.WriteLine("2. MT940 Statement");
-    Console.WriteLine("3. Exit");
-    Console.WriteLine();
+        IBankService bankService = new BankService(adapterRegistry, logger);
 
-    Console.Write("Select Service: ");
-    string? serviceChoice = Console.ReadLine();
+        bool restartApplication;
 
-    switch (serviceChoice)
-    {
-        case "1":
+        do
+        {
 
-            string accountNumber = "";
+            DisplayWelcomeScreen();
 
-            while (true)
+            Bank selectedBank = ReadBankSelection();
+
+            DisplayServiceMenu();
+
+            string service = ReadServiceSelection();
+
+            switch (service)
             {
-                Console.Write("Enter Account Number: ");
-                accountNumber = Console.ReadLine() ?? "";
+                case "Balance":
 
-                if (accountNumber != "")
-                {
+                    try
+                    {
+
+                        Guid correlationId = Guid.NewGuid();
+                        Console.WriteLine();
+                        Console.WriteLine($"Correlation Id: {correlationId}");
+                        Console.WriteLine();
+
+                        string accountNumber = ReadAccountNumber();
+
+                        // Ask the service to perform the balance inquiry.
+                        BankApiResponse<BalanceResponse> response = bankService.GetBalance(selectedBank, accountNumber);
+
+                        // Display the returned information.
+                        DisplayBalanceResult(selectedBank, response.Data!);
+                    }
+                    catch (IntegrationException ex)
+                    {
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Error: {ex.Message}");
+                        Console.ResetColor();
+                    }
                     break;
-                }
 
-                Console.WriteLine("Account number cannot be empty.");
+                case "MT940":
+
+                    DisplayMt940Message();
+
+                    break;
+
+                case "Exit":
+                    Console.WriteLine();
+                    Console.WriteLine("Thank you for using Bank Integration Simulator.");
+                    return;
             }
 
             Console.WriteLine();
-            Console.WriteLine($"Connecting to {selectedBank}...");
-            Console.WriteLine();
-            Console.WriteLine("Balance Inquiry Completed");
-            Console.WriteLine();
-            Console.WriteLine($"Account Number : {accountNumber}");
-            Console.WriteLine("Currency       : SAR");
-            Console.WriteLine("Balance        : 15,350.00");
-            Console.WriteLine();
-            Console.WriteLine("Status         : Success");
+            Console.Write("Would you like to perform another operation? (Y/N): ");
 
-            break;
+            string? answer = Console.ReadLine();
 
-        case "2":
-            Console.WriteLine();
-            Console.WriteLine("Feature coming in future versions.");
-            break;
+            restartApplication =
+                answer?.Trim().Equals("Y", StringComparison.OrdinalIgnoreCase) == true;
 
-        case "3":
-            Console.WriteLine();
-            Console.WriteLine("Thank you for using Bank Integration Simulator.");
-            break;
+        } while (restartApplication);
 
-        default:
-            Console.WriteLine();
-            Console.WriteLine("Invalid service selection.");
-            continue;
+        Console.WriteLine();
+        Console.WriteLine("Thank you for using Bank Integration Simulator.");
     }
 
-    break;
+
+    static void DisplayWelcomeScreen()
+    {
+        Console.WriteLine("==================================");
+        Console.WriteLine(" Bank Integration Simulator");
+        Console.WriteLine("==================================");
+    }
+
+
+    static Bank ReadBankSelection()
+    {
+        List<Bank> banks = BankFactory.GetBanks();
+
+        while (true)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Available Banks");
+
+            for (int i = 0; i < banks.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {banks[i].Name}");
+            }
+
+            Console.WriteLine();
+
+            Console.Write("Select Bank: ");
+
+            string? choice = Console.ReadLine();
+
+            if (int.TryParse(choice, out int selectedIndex))
+            {
+                if (selectedIndex >= 1 && selectedIndex <= banks.Count)
+                {
+                    return banks[selectedIndex - 1];
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Invalid bank selection. Please try again.");
+            }
+        }
+    }
+
+    static void DisplayServiceMenu()
+    {
+        Console.WriteLine();
+        Console.WriteLine("Available Services");
+        Console.WriteLine("1. Balance Inquiry");
+        Console.WriteLine("2. MT940 Statement");
+        Console.WriteLine("3. Exit");
+        Console.WriteLine();
+    }
+
+
+    static string ReadServiceSelection()
+    {
+        while (true)
+        {
+            Console.Write("Select Service: ");
+
+            string? choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    return "Balance";
+
+                case "2":
+                    return "MT940";
+
+                case "3":
+                    return "Exit";
+
+                default:
+                    Console.WriteLine();
+                    Console.WriteLine("Invalid service selection.");
+                    break;
+            }
+        }
+    }
+
+
+    static string ReadAccountNumber()
+    {
+        while (true)
+        {
+            Console.Write("Enter Account Number: ");
+
+            string accountNumber = Console.ReadLine() ?? "";
+
+            if (!string.IsNullOrWhiteSpace(accountNumber))
+            {
+                return accountNumber;
+            }
+
+            Console.WriteLine("Account number cannot be empty.");
+        }
+    }
+
+
+    static void DisplayBalanceResult(Bank bank, BalanceResponse response)
+    {
+        Console.WriteLine();
+        Console.WriteLine($"Bank Name      : {bank.Name}");
+        Console.WriteLine($"Bank Code      : {bank.Code}");
+        Console.WriteLine();
+        Console.WriteLine("Connecting...");
+
+        Console.WriteLine("Balance Inquiry Completed");
+        Console.WriteLine();
+
+        Console.WriteLine($"Account Number : {response.AccountNumber}");
+        Console.WriteLine($"Currency       : {response.Currency}");
+        Console.WriteLine($"Balance        : {response.Balance:N2}");
+
+        Console.WriteLine();
+        Console.WriteLine($"Status         : {response.Status}");
+    }
+
+
+    static void DisplayMt940Message()
+    {
+        Console.WriteLine();
+        Console.WriteLine("Feature coming in future versions.");
+    }
 }
